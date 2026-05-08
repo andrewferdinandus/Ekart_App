@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Code Checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/andrewferdinandus/Ekart.git'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/andrewferdinandus/Ekart_App.git'
             }
         }
 
@@ -65,7 +65,7 @@ pipeline {
             }
         }
         
-        // REMOVED THE EXTRA 'stages {' THAT WAS HERE
+       
         stage('Kubernetes Deployment') {
             steps {
                 withKubeConfig([credentialsId: "${K8S_CRED_ID}"]) {
