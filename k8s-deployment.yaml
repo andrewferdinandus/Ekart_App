@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ekart-k8-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ekart-k8
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ekart-k8 # This must match the selector below
+    spec:
+      containers:
+        - name: ekart-k8
+          image: 'andrewferdi/ekart-app:latest'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8070
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kart-k8-svc
+spec:
+  selector:
+    app: ekart-k8 # This must match the selector above
+  ports:
+    - protocol: TCP
+      port: 8070       # The port the service exposes
+      targetPort: 8070 # The port the container is listening on
+  type: NodePort
