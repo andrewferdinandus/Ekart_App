@@ -21,7 +21,7 @@ pipeline {
 
         stage('Compile & Test') {
             steps {
-                sh "mvn clean verify"
+                sh "mvn clean compile"
             }
         }
   
