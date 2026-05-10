@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Code Checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/andrewferdinandus/Ekart_App.git'
+                git branch: 'agent-test', changelog: false, poll: false, url: 'https://github.com/andrewferdinandus/Ekart_App.git'
             }
         }
 
@@ -93,5 +93,5 @@ pipeline {
                 }
             }
         }
-    } // End of Stages
-} // End of Pipeline
+    }
+}
