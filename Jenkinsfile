@@ -19,17 +19,18 @@ pipeline {
             }
         }
 
-        stage('Compile & Test') {
+        stage('Compile') {
             steps {
-                sh "mvn clean verify"
+                sh "mvn clean compile"
             }
         }
-  
-        stage('Sonarqube Analysis') {
+
+        stage('Test & Sonarqube Analysis') {
             tools {
                 jdk 'jdk11' 
             }
             steps {
+                sh "mvn clean verify"
                 withSonarQubeEnv(installationName: 'sonar-server', credentialsId: '53be6002-0fe8-438e-8aa4-8eee3e568cda') {
                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
                         -Dsonar.projectKey=Ekart \
@@ -65,7 +66,6 @@ pipeline {
             }
         }
         
-       
         stage('Kubernetes Deployment') {
             steps {
                 withKubeConfig([credentialsId: "${K8S_CRED_ID}"]) {
